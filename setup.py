@@ -1,104 +1,110 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+setup.py for installing ZenityShell
+
+Usage:
+   python setup.py install
+
+Copyright 2011-2012 Maxiste Deams all rights reserved,
+Maxiste Deams <maxistedeams@gmail.com>
+Permission to use, modify, and distribute this software is given under the
+terms of the New BSD license :
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided when fullfiling requirement in
+    License.txt, take time to read. 
+
+NO WARRANTY IS EXPRESSED OR IMPLIED.  USE AT YOUR OWN RISK.
+$Revision: 0.0.1-r001a-ekcebo-ivaritt $
+$Date: Mon Sep 10 22:01:31 EDT 2012 $
+Maxiste Deams
+"""
+import os, sys, re, numpy
 from distutils.core import setup
-
-setup(name='ZenityShell',
-      version='0.0.1-r001a-ekcebo-ivaritt',
-      description='Zenity Module with more option embedded for fast integration',
-      author='Maxiste Deams, Patrick Riendeau',
-      author_email='maxistedeams@gmail.com',
-      maintainer='Maxiste Deams',
-      maintainer_email='maxistedeams@gmail.com',
-      url='http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=ZenityShell',
-      download_url='http://pypi.python.org/pypi?:action=files&name=ZenityShell&version=0.0.1-r001a-ekcebo-ivaritt',
-      license='BSD',
-      long_description="""Zenity Shell is a known UI from debian familly packages, somes already published
-some work  under  reserve, they had not  all the switch  available for a more
-customizable prototypying, providing some work around it offert more complete
-solution.
-
-Example
-=======
+import UnderscoreX
+from UnderscoreX import * 
 
 
-This is a simple class example with property involved to create a simple File selection menu.
 
-import ZenityShell
-from ZenityShell import *
+ActualModuleInformation = dir( )
 
-class ZenityKeyMenu( object ):
+PackageHandler = open( 'PKG-INFO', 'r+' )
+FileLicenseH = open( 'LICENCE.TXT', 'r+' )
 
-  ListColumn = list()
-  MenuTitle = None
-  DataMenuList=list()
+TagSplit=re.compile( r'(?i):' )
+TagReg=re.compile( r'(?i)^[a-z0-9\-]*:' )
+ExceptionTag=[ 'metadata_version', 'license' ]
+InListForTag=[ 'keywords','classifiers','requires','platforms']
 
-  def __init__( self , **Kargs ):
-    self.TitleName  = "Choose your Key to add inside AgentLoader"
-    self.ColumnName = "Selection", "Key Name"
-    self.DataMenu = ["FALSE","None"], ["FALSE","GitHub Key"], ["FALSE","PyPi SSH Key"]
-    self.ZenityMenuKey( **Kargs )
 
-  def getColumnName( self ):
-    return self.ListColumn
+for Item in PackageHandler.readlines( ):
+    if TagReg.search( Item):
+        TagInfo=TagSplit.split( Item, 1  )
+        TagTransform=TagInfo[0].replace( '-', '_' ).lower()
+        TagContent=TagInfo[1].replace( '\n', '' ) 
+        if TagTransform not in ExceptionTag:
+            if TagTransform in InListForTag:
+                nameListVar='List{}'.format( TagTransform )
+                if not hasattr( __builtins__, nameListVar ):
+                    print "No List present for Item {}".format( nameListVar )
+                    setattr( __builtins__, nameListVar, list() )
+                else:
+                    print "Append {} to Var {}".format( TagContent, nameListVar )
+                    getattr( getattr( __builtins__, nameListVar ), 'append' )( TagContent )
+            else:
+                nameUniqueVar='Unique{}'.format( TagTransform , TagContent)
+                print "Var {} will hold: [ {} ] ".format( nameUniqueVar, TagContent)
+                setattr( __builtins__, 'Unique{}'.format( TagTransform ), TagContent )
 
-  def setColumnName( self , value ):
-    if len( value ) == 1 :
-      self.ListColumn.append( value )
-    if len( value ) > 1 :
-      IterValue=iter( value ) 
-      try :
-        while True:
-          self.ListColumn.append( IterValue.next() )
-      except StopIteration:
-        pass 
+for ListTagVar in InListForTag:
+    nameListVar='List{}'.format( ListTagVar )
+    if not hasattr( __builtins__, nameListVar ):
+        setattr( __builtins__, nameListVar, list() )
 
-  def eraseColumnName( self ):
-    del self.ListColumn
-    self.ListColumn = list()
-    return True 
+UseNumpyDistutilsConfiguration = False
 
-  def getTitle( self ):
-    return MenuTitle
 
-  def setTitle( self, value ):
-    self.MenuTitle= value
-
-  def eraseTitle( self ):
-    self.MenuTitle=None
-
-  def getDataMenu( self ):
-    return self.DataMenuList
-
-  def setDataMeny( self , value ):
-    if len( value ) == 1 :
-      DefaultValue, NameValue = value 
-      self.DataMenuList.append( DefaultValue, NameValue )
-    if len( value ) > 1 :
-      IterValue=iter( value ) 
-      try :
-        while True:
-          self.DataMenuList.append( IterValue.next() )
-      except StopIteration:
-        pass     
+def configuration( PackageName ):
+    Pconfig = Configuration( PackageName, 
+                             top_path=None,
+                             parent_package='')
+    return Pconfig
     
-  def eraseDataMenu( self ):
-    del self.DataMenuList
-    self.DataMenuList=list()
+if __name__ == "__main__":
+    ListAttr=[ 'make_svn_version_py', 'make_config_py' ]
+
+    if UseNumpyDistutilsConfiguration:
+        config = configuration( __package__ )
+        config.add_data_dir('UnderscoreX')
+        config.add_subpackage('UnderscoreX')
+        config = config.todict()
+
     
+    if 'config' in dir():
+        for AddAttr in ListAttr:
+            if hasattr( config, AddAttr ):
+                if callable( getattr( config, AddAttr ) ) :
+                    getattr( getattr( config, AddAttr )( ) )
     
-  ColumnName  = property( getColumnName,  setColumnName,    eraseColumnName )
-  TitleName   = property( getTitle,       setTitle,         eraseTitle )
-  DataMenu    = property( getDataMenu,    setDataMeny,      eraseDataMenu )
-  
-  def ZenityMenuKey( self , **Kargs ):
-    MenuList  = self.ColumnName
-    Title     = self.MenuTitle
-    DataMenu  = self.DataMenu
-    ### 
-    self.KeyName = List( MenuList , title=Title , boolstyle="radiolist", editable=False , data=DataMenu, **Kargs )
-
-  ### This demonstrate uses of **kwargs not present in Equal development, like PyZenity, Height and
-  ### Width are not handled, also cancel-message an ok messages. 
-
-if __name__.__eq__( '__main__' ):
-  AMenu = ZenitySShKeyMenu( width=300 ,height=300 )
-
-""", py_modules=['ZenityShell'])
+        if sys.version[:3] >= '2.6':
+            config['download_url'] = "http://github.com/priendeau/UnderscoreX"
+            config['author']= "Maxiste Deams"
+            config['author_email']= __author_email__
+            config['classifiers'] = ClassifierField
+    
+    setup( name=Uniquename,
+           version=Uniqueversion,
+           url=Uniqueurl,
+           description=Uniquedescription,
+           license=FileLicenseH.read(),
+           long_description=Uniquelong_description,
+           keywords = Listkeywords,
+           classifiers=Listclassifiers ,
+           author_email = Uniqueauthor_email,
+           download_url = Uniquedownload_url,
+           author = Uniqueauthor,
+           maintainer = Uniquemaintainer,
+           maintainer_email = Uniquemaintainer_email,
+           requires = Listrequires, 
+           platforms = Listplatforms )

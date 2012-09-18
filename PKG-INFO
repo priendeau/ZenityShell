@@ -1,12 +1,14 @@
-Metadata-Version: 1.1
-Name: ZenityShell
-Version: 0.0.1-r001a-ekcebo-ivaritt
-Author: Maxiste Deams, Patrick Riendeau
-Author-email: maxistedeams at gmail com
-Home-page: http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=ZenityShell
-Download-url: http://pypi.python.org/pypi?:action=files&name=ZenityShell&version=0.0.1-r001a-ekcebo-ivaritt
-Summary: Zenity Module with more option embedded for fast integration
-License: Copyright (c) 2004-2012, Maxiste Deams, alis Patrick Riendeau.
+Metadata-Version:1.1
+Name:ZenityShell
+Version:0.0.1-r001a-ekcebo-ivaritt
+Author:Maxiste Deams, Patrick Riendeau
+Author-email:maxistedeams at gmail com
+Maintainer:Maxiste Deams, Patrick Riendeau Rheault Etccy
+Maintainer-email:MaxisteDeams@gmail.com, p_riendeau@live.ca rheault.etccy@gmail.com
+Home-page:http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=ZenityShell
+Download-url:http://pypi.python.org/pypi?:action=files&name=ZenityShell&version=0.0.1-r001a-ekcebo-ivaritt
+Summary:Zeniy Module with more option embedded for fast integration
+License:Copyright (c) 2004-2012, Maxiste Deams, alis Patrick Riendeau.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,13 +32,128 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+Long-Description:
+ZenityShell
+
+Zenity Module with more option embedded for fast integration
+Example
+
+::
+
+    
+import ZenityShell
+from ZenityShell import *
+
+class ZenitySShKeyMenu( object ):
+
+      ListColumn = list()
+      MenuTitle = None
+      DataMenuList=list()
+
+      def __init__( self , **Kargs ):
+        self.TitleName  = "Choose your Key to add inside AgentLoader"
+        self.ColumnName = "Selection", "Key Name"
+        self.DataMenu = ["FALSE","None"], ["FALSE","GitHub Key"], ["FALSE","PyPi SSH Key"]
+        self.ZenityMenuKey( **Kargs )
+
+      def getColumnName( self ):
+        return self.ListColumn
+
+      def setColumnName( self , value ):
+        if len( value ) == 1 :
+          self.ListColumn.append( value )
+        if len( value ) > 1 :
+          IterValue=iter( value ) 
+          try :
+            while True:
+              self.ListColumn.append( IterValue.next() )
+          except StopIteration:
+            pass 
+
+      def eraseColumnName( self ):
+        del self.ListColumn
+        self.ListColumn = list()
+        return True 
+
+      def getTitle( self ):
+        return MenuTitle
+
+      def setTitle( self, value ):
+        self.MenuTitle= value
+
+      def eraseTitle( self ):
+        self.MenuTitle=None
+
+      def getDataMenu( self ):
+        return self.DataMenuList
+
+      def setDataMeny( self , value ):
+        if len( value ) == 1 :
+          DefaultValue, NameValue = value 
+          self.DataMenuList.append( DefaultValue, NameValue )
+        if len( value ) > 1 :
+          IterValue=iter( value ) 
+          try :
+            while True:
+              self.DataMenuList.append( IterValue.next() )
+          except StopIteration:
+            pass     
+
+      def eraseDataMenu( self ):
+        del self.DataMenuList
+        self.DataMenuList=list()
+
+
+      ColumnName  = property( getColumnName,  setColumnName,    eraseColumnName )
+      TitleName   = property( getTitle,       setTitle,         eraseTitle )
+      DataMenu    = property( getDataMenu,    setDataMeny,      eraseDataMenu )
+
+      def ZenityMenuKey( self , **Kargs ):
+        MenuList  = self.ColumnName
+        Title     = self.MenuTitle
+        DataMenu  = self.DataMenu
+        self.KeyName = List( MenuList , title=Title , boolstyle="radiolist", editable=False , data=DataMenu, **Kargs )
+
+
+
+    if __name__.__eq__( '__main__' ):
+
+    ### Here an example not possible usually to add height and size in conventionnal Zenity Python module. 
+    AMenu = ZenitySShKeyMenu( width=300 ,height=300 )  
+url:http://pypi.python.org/pypi?:action=display&name=ZenityShell&version=0.0.1-r001a-ekcebo-ivaritt
 Description: Zenity Shell is a known UI from debian familly packages, somes already published some work  under  reserve, they had not  all the switch  available for a more customizable prototypying, providing some work around it offert more complete solution.
+Requires:iterpipes
+Requires:os
+Requires:itertools
+Requires:subprocess
+Requires:datetime 
 Platform: All, except illegal one.
-Classifier: Environment :: Console
-Classifier: Intended Audience :: Developers
-Classifier: License :: OSI Approved :: BSD License
-Classifier: Natural Language :: English
-Classifier: Operating System :: OS Independent
-Classifier: Programming Language :: Python
+Classifiers:Development Status :: 3 - Alpha
+Classifiers:Environment :: X11 Applications :: Gnome
+Classifiers:Environment :: X11 Applications :: GTK
+Classifiers:Intended Audience :: Developers
+Classifiers:Intended Audience :: End Users/Desktop
+Classifiers:Intended Audience :: Information Technology
+Classifiers:Intended Audience :: System Administrators
+Classifiers:License :: Free For Educational Use
+Classifiers:License :: Free For Home Use
+Classifiers:License :: Freely Distributable
+Classifiers:License :: OSI Approved :: BSD License
+Classifiers:Natural Language :: English
+Classifiers:Operating System :: MacOS :: MacOS X
+Classifiers:Operating System :: POSIX :: Linux
+Classifiers:Operating System :: POSIX :: Other
+Classifiers:Programming Language :: Python
+Classifiers:Programming Language :: Python :: 2.6
+Classifiers:Programming Language :: Python :: 2.7
+Classifiers:Programming Language :: Unix Shell
+Classifiers:Topic :: Desktop Environment :: File Managers
+Classifiers:Topic :: Desktop Environment :: Gnome
+Classifiers:Topic :: Software Development :: Libraries
+Classifiers:Topic :: Software Development :: Libraries :: Python Modules
+Classifiers:Topic :: System :: Systems Administration
+Classifiers:Topic :: System :: System Shells
+Classifiers:Topic :: Utilities
+
 
 
