@@ -1,0 +1,20 @@
+Metadata-Version: 1.0
+Name: ZenityShell
+Version: 0.0.1-r001a-ekcebo-ivaritt
+Summary: Zenity Module with more option embedded for fast integration
+Home-page: http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=ZenityShell
+Author: Maxiste Deams, Patrick Riendeau
+Author-email: maxistedeams@gmail.com
+License: BSD
+Download-URL: http://pypi.python.org/pypi?:action=files&name=ZenityShell&version=0.0.1-r001a-ekcebo-ivaritt
+Description: Zenity Shell is a known UI from debian familly packages, somes already published some work  under  reserve, they had not  all the switch  available for a more customizable prototypying, providing some work around it offert more complete solution.
+Platform: All, except illegal one.
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+

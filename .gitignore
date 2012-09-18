@@ -1,0 +1,7 @@
+build/
+build/lib.linux-x86_64-2.7
+build/lib.linux-x86_64-2.7/ZenityShell.py
+build/bdist.linux-x86_64
+dist/
+dist/ZenityShell-0.0.1-r001a-ekcebo-ivaritt.linux-x86_64.tar.gz
+.git
