@@ -81,4 +81,10 @@ Example
 			Title     = self.MenuTitle
 			DataMenu  = self.DataMenu
 			self.KeyName = List( MenuList , title=Title , boolstyle="radiolist", editable=False , data=DataMenu, **Kargs )
-   
+
+
+
+		if __name__.__eq__( '__main__' ):
+
+		### Here an example not possible usually to add height and size in conventionnal Zenity Python module. 
+		AMenu = ZenitySShKeyMenu( width=300 ,height=300 )  
