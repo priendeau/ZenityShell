@@ -1,0 +1,13 @@
+LICENCE.TXT
+MANIFEST
+README.md
+ZenityShell.py
+index.html
+index.zip
+setup.py
+ZenityShell.egg-info/PKG-INFO
+ZenityShell.egg-info/SOURCES.txt
+ZenityShell.egg-info/dependency_links.txt
+ZenityShell.egg-info/requires.txt
+ZenityShell.egg-info/requires_modules
+ZenityShell.egg-info/top_level.txt

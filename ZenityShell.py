@@ -56,7 +56,9 @@ zen_exec = 'zenity'
 
 def AddBasicParameter( **kwargs ):
     for ItemParam in kwargs.keys():
-        args.append('--{}={}'.format( ItemParam, kwargs[ItemParam] ) )
+        ArgValue='--{}={}'.format( ItemParam, kwargs[ItemParam] )
+        print "ZenityShell: Following parameter will be added, {}".format( ArgValue )
+        args.append( ArgValue )
 
 
 def run_zenity(type, *args):
